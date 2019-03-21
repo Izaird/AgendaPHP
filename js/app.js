@@ -6,13 +6,13 @@ eventListeners();
 function eventListeners() {
     //Cuando el formulario de crear o editar se ejectuta 
 
-    formularioContactos.addEventListener('submit', leeFormulario)
+    formularioContactos.addEventListener('submit', leerFormulario)
 
 
 }
 
 
-function leeFormulario(e) {
+function leerFormulario(e) {
     e.preventDefault();
     //Leer los datos de los inputs
     const 
@@ -35,9 +35,10 @@ function leeFormulario(e) {
         infoContactos.append('empresa', empresa);
         infoContactos.append('telefono', telefono);
         infoContactos.append('accion', accion);
+        // console.log(...infoContactos);
 
         if (accion === 'crear') {
-            //Crearemos un nuevo elemento
+            //Crearemos un nuevo contacto
             insertarBD(infoContactos);
         }
 
@@ -56,7 +57,7 @@ function insertarBD(datos){
 
 
     //Crear el objeto 
-    const xhr = new XMLHttpRequest;
+    const xhr = new XMLHttpRequest();
 
     //Abrir la conexcion
     xhr.open('POST', 'inc/modelos/modelos_contactos.php', true);
@@ -68,7 +69,7 @@ function insertarBD(datos){
             //Leemos la respuesta de PHP
 
             const respuesta = JSON.parse(this.responseText);
-            console.log(respuesta.empresa);
+            console.log(respuesta);
         }
 
     }
@@ -77,6 +78,7 @@ function insertarBD(datos){
     xhr.send(datos);
 }
 
+//Notificacion en pantalla 
 function mostarNotificacion(mensaje, clase) {
     const notificacion = document.createElement('div');
     notificacion.classList.add(clase, 'notificacion', 'sombra');
